@@ -1,56 +1,55 @@
 "use client";
 import { Box, Button } from "@mui/material";
-import { useBlog } from "../context/BlogContext";
-import { useRouter } from "next/navigation";
-import Swal from "sweetalert2";
 
-export default function StepNavigation({ step, next, back, data }) {
-  const { addPost } = useBlog();
-  const router = useRouter();
-
-  const handleSubmit = () => {
-    if (!data || !data.title || !data.author) {
-      Swal.fire({
-        title: "Missing Data",
-        text: "Please complete all fields before submitting.",
-        icon: "warning",
-        confirmButtonColor: "#1976d2",
-      });
-      return;
-    }
-
-    addPost({
-      ...data,
-      id: Date.now(),
-      date: new Date().toISOString(),
-    });
-
-    Swal.fire({
-      title: "Success!",
-      text: "Your blog post has been created successfully",
-      icon: "success",
-      confirmButtonColor: "#1976d2",
-      confirmButtonText: "Go to Blog List",
-    }).then(() => router.push("/"));
-  };
+export default function StepNavigation({ step, next, back, handleSubmit }) {
+  const isLastStep = step === 4;
 
   return (
-    <Box sx={{ display: "flex", justifyContent: "flex-end", gap: 2, mt: 3 }}>
+    <Box
+      sx={{
+        display: "flex",
+        flexWrap: "wrap",
+        justifyContent: { xs: "center", sm: "flex-end" },
+        alignItems: "center",
+        gap: 1.5,
+        mt: 2,
+        width: "100%",
+      }}
+    >
       {step > 1 && (
-        <Button variant="outlined" onClick={back}>
+        <Button
+          onClick={back}
+          color="primary"
+          variant="outlined"
+          sx={{
+            fontWeight: 600,
+            textTransform: "none",
+            width: { xs: "100%", sm: "auto" },
+            minWidth: "90px",
+            height: "38px",
+          }}
+        >
           Back
         </Button>
       )}
 
-      {step < 4 ? (
-        <Button variant="contained" onClick={next}>
-          Next
-        </Button>
-      ) : (
-        <Button variant="contained" color="success" onClick={handleSubmit}>
-          Submit
-        </Button>
-      )}
+      <Button
+        onClick={isLastStep ? handleSubmit : next}
+        sx={{
+          fontWeight: 600,
+          textTransform: "none",
+          width: { xs: "100%", sm: "auto" },
+          minWidth: "90px",
+          height: "38px",
+          backgroundColor: isLastStep ? "#648B6B" : "#1976D2",
+          color: "#fff",
+          "&:hover": {
+            backgroundColor: isLastStep ? "#557A5C" : "#1565C0",
+          },
+        }}
+      >
+        {isLastStep ? "Submit" : "Next"}
+      </Button>
     </Box>
   );
 }

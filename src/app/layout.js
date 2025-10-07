@@ -1,18 +1,23 @@
 "use client";
+
 import { CssBaseline, ThemeProvider } from "@mui/material";
+import { DM_Sans } from "next/font/google";
 import theme from "../styles/theme";
 import "./globals.css";
 import { BlogProvider } from "../context/BlogContext";
 
+const dmSans = DM_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "700"],
+});
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body>
+      <body className={dmSans.className}>
         <ThemeProvider theme={theme}>
           <CssBaseline />
-          <BlogProvider>
-            {children}
-          </BlogProvider>
+          <BlogProvider>{children}</BlogProvider>
         </ThemeProvider>
       </body>
     </html>
