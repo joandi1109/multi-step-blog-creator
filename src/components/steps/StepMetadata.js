@@ -3,21 +3,12 @@ import { Box, Typography } from "@mui/material";
 import FormField from "../FormField";
 
 export default function StepMetadata({ data = {}, update = () => {}, errors = {} }) {
-  const handleChange = (e) => {
-    update({ [e.target.name]: e.target.value });
-  };
+  const handleChange = (e) => update({ [e.target.name]: e.target.value });
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: 1.5 }}>
-      {/* Blog Title */}
       <Box sx={{ display: "flex", flexDirection: "column", gap: 0.5 }}>
-        <Typography
-          variant="subtitle1"
-          sx={{
-            fontWeight: 600,
-            color: "#000",
-          }}
-        >
+        <Typography variant="subtitle1" sx={{ fontWeight: 600, color: "#000" }}>
           Blog Title
         </Typography>
 
@@ -36,15 +27,8 @@ export default function StepMetadata({ data = {}, update = () => {}, errors = {}
         )}
       </Box>
 
-      {/* Author Name */}
       <Box sx={{ display: "flex", flexDirection: "column", gap: 0.5 }}>
-        <Typography
-          variant="subtitle1"
-          sx={{
-            fontWeight: 600,
-            color: "#000",
-          }}
-        >
+        <Typography variant="subtitle1" sx={{ fontWeight: 600, color: "#000" }}>
           Author Name
         </Typography>
 
